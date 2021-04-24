@@ -1,0 +1,40 @@
+.mainFeald {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+
+    ;
+    .tableHeader {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid rgb(255, 255, 255);
+        background-color: cadetblue;
+        color: white;
+        width: 100%;
+        p {
+            padding: 1rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            &:hover {
+                border-radius: 1rem;
+                box-shadow: 1px 1px 1px 1px;
+                &:first-child {
+                    cursor: default;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+    .itemsStyle {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid rgb(126, 126, 126);
+        width: 100%;
+        background-color: rgb(238, 238, 238);
+        p {
+            padding: 1rem;
+        }
+    }
+}
