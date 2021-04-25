@@ -5,7 +5,6 @@ import styles from './main.module.scss';
     const [data, setData] = useState([])
     const [newData, setNewData] = useState([])
     const [isLoading, setIsloading] = useState(true)
-    console.log(data);
     async function fetchData() {
         try{
             let response = await fetch('https://unique-yew-307513-default-rtdb.europe-west1.firebasedatabase.app/delivery.json');
@@ -21,13 +20,20 @@ import styles from './main.module.scss';
     }, []);
 
     function sortDistanceUp() {
-        console.log('up')
-        setNewData(newData.sort((prev, next) => prev.distance - next.distance))
+        setNewData([...newData.sort((prev, next) => prev.distance - next.distance)])
     }
 
     function sortDistanceDown() {
-        console.log('down')
-        setNewData(newData.sort((prev, next) => next.distance - prev.distance))
+        const newArr = JSON.parse(JSON.stringify(newData))
+        setNewData(newArr.sort((prev, next) => next.distance - prev.distance))
+    }
+
+    function sortPeopleUp() {
+        setNewData([...newData.sort((prev, next) => prev.people - next.people)])
+    }
+
+    function sortPeopleDown() {
+        setNewData([...newData.sort((prev, next) => next.people - prev.people)])
     }
 
     function removeCountry(e) {      
@@ -45,8 +51,8 @@ import styles from './main.module.scss';
                 </li>
                 <li>Quantity
                     <ul>
-                        <li onClick={()=>sortDistanceUp()}>по возрастанию</li>
-                        <li onClick={()=>sortDistanceDown()}>по убыванию</li>
+                        <li onClick={()=>sortPeopleUp()}>по возрастанию</li>
+                        <li onClick={()=>sortPeopleDown()}>по убыванию</li>
                     </ul>
                 </li>
                 <li>Distance
@@ -59,8 +65,8 @@ import styles from './main.module.scss';
             {isLoading
              ?<div className={styles.itemsStyle}><p>LOADING...</p></div>
              :<div className={styles.itemsFeald}>
-                {newData.map((item, index)=>{
-                    return <div key={index} className={styles.itemsStyle}>
+                {newData.map(item=>{
+                    return <div key={item.id} className={styles.itemsStyle}>
                         <p>{item.data}</p>
                         <p>{item.name}</p>
                         <p>{item.people}</p>
