@@ -14,14 +14,23 @@ export default function Main() {
         fetchData();
       }, []);
 
+      function sortDistance() {
+          setData(data.sort((prev, next) => prev.distance - next.distance))
+      }
+
     return (
         <div className={styles.mainFeald}>
-            <div className={styles.tableHeader}>
-                <p>Date</p>
-                <p>Name</p>
-                <p>Quantity</p>
-                <p>Distance</p>
-            </div>
+            <ul className={styles.tableHeader}>
+                <li>Date</li>
+                <li>Name</li>
+                <li>Quantity</li>
+                <li>Distance
+                    <ul>
+                        <li onClick={()=>sortDistance()}>по возрастанию</li>
+                        <li>по убыванию</li>
+                    </ul>
+                </li>
+            </ul>
             {data.map((item, index)=>{
                 return <div key={index} className={styles.itemsStyle}>
                         <p>{item.data}</p>
