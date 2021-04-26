@@ -59,5 +59,36 @@
     }
     .itemsFeald {
         width: 100%;
-    }   
+    } 
+    .renderPageNumber {
+        list-style: none;
+        display: flex;
+        color: white;
+        li {
+            padding: 0.5rem;
+            border: 1px solid white;
+            cursor: pointer;
+            background-color:cadetblue;
+            &:hover {
+                background-color: white;
+                color: black;
+                &:hover>button {
+                    color: black;
+                    cursor: pointer;
+                }
+            }
+            button {
+                border: none;
+                background: none;
+                color: white;
+                &:focus {
+                    outline: none;
+                }
+            } 
+        }
+        .active {
+            background-color: white;
+            color: black;
+        }
+    }  
 }
