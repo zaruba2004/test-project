@@ -6,8 +6,8 @@
     margin: 2rem;
     .tableHeader {
         position: relative;
-        display: flex;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr; 
         border: 1px solid rgb(255, 255, 255);
         background-color: cadetblue;
         color: white;
@@ -25,9 +25,11 @@
             }
             &:hover>ul {
                 display: block;
+                width: 100%;
             }
             &:hover>input {
                 display: block;
+                width: 100%;
             }
             input {
                 position: absolute;
@@ -58,8 +60,8 @@
         }
     }
     .itemsStyle {
-        display: flex;
-        justify-content: space-around;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr; 
         border-bottom: 1px solid rgb(126, 126, 126);
         width: 100%;
         background-color: rgb(238, 238, 238);
