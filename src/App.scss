@@ -8,6 +8,22 @@
     margin: 0;
     padding-top: 2rem;
   }
+  footer {
+    .git {
+      display: flex;
+      justify-content: center;
+      color: white;
+      a {
+        text-decoration: none;
+        color: white;
+        margin-right: 2rem;
+      }
+      p {
+        margin: 0;
+      }
+    }
+    
+  }
 }
 
 
