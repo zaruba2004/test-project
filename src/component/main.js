@@ -105,7 +105,7 @@ import styles from './main.module.scss';
     return (
         <div className={styles.mainFeald}>
             <ul className={styles.tableHeader}>
-                <li onClick={()=>fetchData()}>Date</li>
+                 <li>Date</li>           {/*onClick={()=>fetchData()} */}
                 <li>Name
                     <input onChange={searchCity} type='text' placeholder='ENTER CITY'/>
                 </li>
