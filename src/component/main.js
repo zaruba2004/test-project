@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './main.module.scss';
+import Modal from './modal/modal';
 
  const Main = () => {
     const [data, setData] = useState([])
@@ -7,7 +8,8 @@ import styles from './main.module.scss';
     const [isLoading, setIsloading] = useState(true)
     const [currentPage, setCurrentPage] = useState(1)
     const [maxPageNunberLimit, setMaxPageNunberLimit] = useState(3)
-    const [minPageNunberLimit, setMinPageNunberLimit] = useState(0)    
+    const [minPageNunberLimit, setMinPageNunberLimit] = useState(0) 
+    const [isRouteModalVisible, setIsRouteModalVisible] = useState(false)   
     const itemsPerPage = 5;
     const pageNunberLimit = 3;
 
@@ -102,10 +104,19 @@ import styles from './main.module.scss';
         setNewData(data.filter(item => item.name.toLowerCase().includes(newValue)));
        };
 
+    function closeModal() {
+        setIsRouteModalVisible(false)
+    }  
+
     return (
         <div className={styles.mainFeald}>
+            <div className={styles.buttonFeald}>
+                <span onClick={()=>fetchData()}>UPDATE</span>
+                <span onClick={()=>setIsRouteModalVisible(true)}>ADD ROUTE</span>
+            </div>
+            {isRouteModalVisible && <Modal closeModal={closeModal} />}
             <ul className={styles.tableHeader}>
-                 <li>Date</li>           {/*onClick={()=>fetchData()} */}
+                 <li>Date</li>        
                 <li>Name
                     <input onChange={searchCity} type='text' placeholder='ENTER CITY'/>
                 </li>
