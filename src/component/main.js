@@ -71,8 +71,11 @@ import Modal from './modal/modal';
         try{
             let response = await fetch('https://unique-yew-307513-default-rtdb.europe-west1.firebasedatabase.app/delivery.json');
             response = await response.json()
-            setData(response);
-            setNewData(response)
+            let newDelivery =[]
+            Object.values(response).forEach((key) => {
+                newDelivery.push(key)})
+            setData(newDelivery);
+            setNewData(newDelivery)
             setIsloading(false)
         }catch(e){console.log(e)}        
       }
@@ -114,7 +117,7 @@ import Modal from './modal/modal';
                 <span onClick={()=>fetchData()}>UPDATE</span>
                 <span onClick={()=>setIsRouteModalVisible(true)}>ADD ROUTE</span>
             </div>
-            {isRouteModalVisible && <Modal closeModal={closeModal} />}
+            {isRouteModalVisible && <Modal closeModal={closeModal} newData={newData}/>}
             <ul className={styles.tableHeader}>
                  <li>Date</li>        
                 <li>Name
@@ -144,7 +147,7 @@ import Modal from './modal/modal';
                         <p>{item.distance}</p>
                     </div>
                 }) 
-            }
+                }
              </div>
             }
             <ul className={styles.renderPageNumber}>
