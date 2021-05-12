@@ -37,12 +37,12 @@
             top: 7px;
             right: 7px;
             border-radius: 50%;
-            // color: white;
+            color: white;
             font-size: large;
             padding: 0.4rem;
             &:hover {
                 transition: all 0.2s;
-                color: white;
+                color: orange;
             }
         }
     }

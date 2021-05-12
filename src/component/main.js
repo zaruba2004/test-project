@@ -21,6 +21,11 @@ import Modal from './modal/modal';
     const indexOfLastItem = currentPage*itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = newData.slice(indexOfFirstItem, indexOfLastItem);
+    // if(currentItems.length !== itemsPerPage){
+    //     while(currentItems.length !==itemsPerPage ){
+    //         currentItems.push({})  //think of what to add
+    //     }
+    // }
 
     function handleClick(event) {
         setCurrentPage(Number(event.target.id));
@@ -67,13 +72,26 @@ import Modal from './modal/modal';
         pageIncrementBtn = <li onClick={handleNextBtn}>&hellip;</li>
     }
 
+    const handlelastPageBtn = () => {
+        setCurrentPage(pages.length)
+        setMaxPageNunberLimit(maxPageNunberLimit + pageNunberLimit);
+        setMinPageNunberLimit(minPageNunberLimit + pageNunberLimit);
+    }
+
+    let lastPageBtn = null;
+    if(pages.length > maxPageNunberLimit) {
+        lastPageBtn = <li onClick={handlelastPageBtn} 
+        className={currentPage === pages.length ? `${styles.active}` : null}>{pages.length}</li>
+    }
+
+
     async function fetchData() {
         try{
             let response = await fetch('https://unique-yew-307513-default-rtdb.europe-west1.firebasedatabase.app/delivery.json');
             response = await response.json()
             let newDelivery =[]
-            Object.values(response).forEach((key) => {
-                newDelivery.push(key)})
+            Object.values(response).forEach((value) => {
+                newDelivery.push(value)})
             setData(newDelivery);
             setNewData(newDelivery)
             setIsloading(false)
@@ -112,51 +130,54 @@ import Modal from './modal/modal';
     }  
 
     return (
-        <div className={styles.mainFeald}>
-            <div className={styles.buttonFeald}>
-                <span onClick={()=>fetchData()}>UPDATE</span>
-                <span onClick={()=>setIsRouteModalVisible(true)}>ADD ROUTE</span>
-            </div>
-            {isRouteModalVisible && <Modal closeModal={closeModal} newData={newData}/>}
-            <ul className={styles.tableHeader}>
-                 <li>Date</li>        
-                <li>Name
-                    <input onChange={searchCity} type='text' placeholder='ENTER CITY'/>
-                </li>
-                <li>Quantity
-                    <ul>
-                        <li onClick={()=>sortPeopleUp()}>Ascending</li>
-                        <li onClick={()=>sortPeopleDown()}>Descending</li>
-                    </ul>
-                </li>
-                <li>Distance
-                    <ul>
-                        <li onClick={()=>sortDistanceUp()}>Ascending</li>
-                        <li onClick={()=>sortDistanceDown()}>Descending</li>
-                    </ul>
-                </li>
-            </ul>
-            {isLoading
-             ?<div className={styles.itemsStyle}><p>LOADING...</p></div>
-             :<div className={styles.itemsFeald}>
-                {currentItems.map(item=>{
-                    return <div key={item.id} className={styles.itemsStyle}>
-                        <p>{item.data}</p>
-                        <p>{item.name}</p>
-                        <p>{item.people}</p>
-                        <p>{item.distance}</p>
-                    </div>
-                }) 
+        <div className={styles.main}>
+            <div className={styles.mainFeald}>
+                <div className={styles.buttonFeald}>
+                    <span onClick={()=>fetchData()}>UPDATE</span>
+                    <span onClick={()=>setIsRouteModalVisible(true)}>ADD ROUTE</span>
+                </div>
+                {isRouteModalVisible && <Modal closeModal={closeModal} newData={newData}/>}
+                <ul className={styles.tableHeader}>
+                    <li>Date</li>        
+                    <li>Name
+                        <input onChange={searchCity} type='text' placeholder='ENTER CITY'/>
+                    </li>
+                    <li>Quantity
+                        <ul>
+                            <li onClick={()=>sortPeopleUp()}>Ascending</li>
+                            <li onClick={()=>sortPeopleDown()}>Descending</li>
+                        </ul>
+                    </li>
+                    <li>Distance
+                        <ul>
+                            <li onClick={()=>sortDistanceUp()}>Ascending</li>
+                            <li onClick={()=>sortDistanceDown()}>Descending</li>
+                        </ul>
+                    </li>
+                </ul>
+                {isLoading
+                ?<div className={styles.itemsStyle}><p>LOADING...</p></div>
+                :<div className={styles.itemsFeald}>
+                    {currentItems.map(item=>{
+                        return <div key={item.id} className={styles.itemsStyle}>
+                            <p>{item.data}</p>
+                            <p>{item.name}</p>
+                            <p>{item.people}</p>
+                            <p>{item.distance}</p>
+                        </div>
+                    }) 
+                    }
+                </div>
                 }
-             </div>
-            }
-            <ul className={styles.renderPageNumber}>
-                <li><button onClick={handlePrevtBtn} disabled={currentPage === pages[0] ? true : false}>Prev</button></li>
-                {pageDecrementBtn}
-                {renderPageNumber}
-                {pageIncrementBtn}
-                <li><button onClick={handleNextBtn} disabled={currentPage === pages[pages.length-1] ? true : false}>Next</button></li>
-            </ul>
+                <ul className={styles.renderPageNumber}>
+                    <li><button onClick={handlePrevtBtn} disabled={currentPage === pages[0] ? true : false}>Prev</button></li>
+                    {pageDecrementBtn}
+                    {renderPageNumber}
+                    {pageIncrementBtn}
+                    {lastPageBtn}
+                    <li><button onClick={handleNextBtn} disabled={currentPage === pages[pages.length-1] ? true : false}>Next</button></li>
+                </ul>
+            </div>
         </div>
     )
 }
