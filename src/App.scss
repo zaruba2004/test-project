@@ -1,0 +1,33 @@
+body {
+  background-color: rgb(187, 202, 202);
+}
+
+.App {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  h2{
+    margin: 0;
+    padding-top: 2rem;
+  }
+  footer {
+    .git {
+      display: flex;
+      justify-content: center;
+      color: white;
+      flex-wrap: wrap;
+      a {
+        text-decoration: none;
+        color: white;
+        margin: 0.3rem 2rem;
+      }
+      p {
+        margin: 0.3rem 2rem;
+      }
+    }
+    
+  }
+}
+
+
